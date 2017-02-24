@@ -1,0 +1,154 @@
+%YAML 1.2
+---
+# http://www.sublimetext.com/docs/3/syntax.html
+name: Odin
+file_extensions:
+  - odin
+first_line_match: "-[*]-( Mode:)? Odin -[*]-"
+scope: source.odin
+variables:
+  identifier: '\b[[:alpha:]_][[:alnum:]_]*\b'
+  type_chars: '[[:alnum:]\s,._^<>\[\]-]'
+
+contexts:
+  main:
+    - include: global
+
+  global:
+    - include: comments
+    - include: keywords
+    - include: types
+    # - include: custom_styling
+    - include: functions
+    - include: declarations
+    - include: strings
+    - include: string-escaped-char
+
+
+  custom_styling:
+    - match: \b([A-Z_](?![a-z])[A-Z_0-9]+)\b
+      captures:
+        1: storage.constant.odin
+
+    - match: \b([A-Z][a-z0-9]+)([_A-Z][a-z0-9]*)*\b
+      scope: storage.type.odin
+
+  block-comment:
+    - match: /\*
+      scope: punctuation.definition.comment.odin
+      push:
+        - meta_scope: comment.block.odin
+        - match: \*/
+          scope: punctuation.definition.comment.odin
+          pop: true
+        - include: block-comment
+
+  comments:
+    - include: block-comment
+    - match: //
+      scope: punctuation.definition.comment.odin
+      push:
+        - meta_scope: comment.line.double-slash.odin
+        - match: \n
+          pop: true
+
+  keywords:
+    - match: \b(if|else|when|while|for|in|defer|match|return|give)\b
+      scope: keyword.control.odin
+    - match: \b(fallthrough|break|continue|case|default|vector|dynamic)\b
+      scope: keyword.control.odin
+    - match: \b(using|no_alias|immutable)\b
+      scope: keyword.control.odin
+    - match: \b(asm|volatile|push_allocator|push_context)\b
+      scope: keyword.control.odin
+    - match: \b(push_allocator|push_context)\b
+      scope: keyword.control.odin
+    - match: \b(nil|true|false|iota)\b
+      scope: constant.language.odin
+    - match: '\b(\d(\d|_)*(.(\d|_))?)((e|E)(\+|-)?\d+)?\b'
+      scope: constant.numeric.odin
+    - match: '\b((0b(0|1|_)+)|(0o(\d|_)+)|(0d(\d|_)+)|(0[xX](\h|_)+))\b'
+      scope: constant.numeric.odin
+    - match: \b(macro|proc|struct|enum|union|raw_union|map)\b
+      scope: storage.type.odin
+    - match: \b(cast|transmute|down_cast|union_cast)\b
+      scope: keyword.function.odin
+    - match: \b((size_of|align_of|offset_of)(_val)?|type_of_val|type_info)\b\s*\(
+      captures:
+        1: keyword.function.odin
+    - match: '(#\s*{{identifier}})'
+      scope: keyword.tag.odin
+    - match: \b(context)\b
+      scope: keyword.operator.odin
+
+  functions:
+    - match: \b({{identifier}})\b\s*:\s*:\s*(proc|macro)\s*\(
+      captures:
+        1: meta.function.odin entity.name.function.odin
+        2: storage.type.odin
+    - include: function-use
+    - match: ({{identifier}})\s*[!]?\s*[\(]
+      captures:
+        1: support.function.odin
+
+  declarations:
+    - match: \b({{identifier}})\b\s*:\s*(type)?\s*:\s*(struct|enum|union|raw_union|(#type))\s+
+      captures:
+        1: meta.type.odin entity.name.type.odin
+        2: keyword.control.odin
+        3: storage.type.odin
+        4: keyword.control.odin
+        5: storage.type.odin
+      push:
+        - match: ''
+          pop: true
+        - include: types
+
+  types:
+    - match: '\b(struct|enum|union|raw_union)\b(?:(\{)(\}))?'
+      captures:
+        1: storage.type.odin
+        2: meta.block.odin punctuation.definition.block.begin.odin
+        3: meta.block.odin punctuation.definition.block.end.odin
+    - match: (\[)(\d*)(\])(?=[[:alpha:]_])
+      scope: meta.brackets.odin
+      captures:
+        1: punctuation.definition.brackets.begin.odin
+        2: constant.numeric.odin
+        3: punctuation.definition.brackets.end.odin
+    - include: basic-types
+
+  basic-types:
+    - match: '\b((i8|i16|i32|i64|int)?|(u8|u16|u32|u64|uint)?|(f32|f64)?|byte|bool|string|rune|rawptr|any)\b'
+      scope: storage.type.odin
+
+  strings:
+    - match: '"'
+      scope: punctuation.definition.string.begin.odin
+      push:
+        - meta_scope: string.quoted.double.odin
+        - match: '"'
+          scope: punctuation.definition.string.end.odin
+          pop: true
+        - include: string-escaped-char
+    - match: "`"
+      scope: punctuation.definition.string.begin.odin
+      push:
+        - meta_scope: string.quoted.raw.odin
+        - match: "`"
+          scope: punctuation.definition.string.end.odin
+          pop: true
+    - match: "'"
+      scope: punctuation.definition.string.begin.odin
+      push:
+        - meta_scope: string.quoted.raw.odin
+        - match: "'"
+          scope: punctuation.definition.string.end.odin
+          pop: true
+        - include: string-escaped-char
+
+  string-escaped-char:
+    - match: '\\(\\|[abfnrutv''"]|x\h{2}|u\h{4}|U\h{8}|[0-7]{3})'
+      scope: constant.character.escape.odin
+    - match: \\.
+      scope: invalid.illegal.unknown-escape.odin
