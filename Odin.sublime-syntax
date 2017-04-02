@@ -65,9 +65,9 @@ contexts:
       scope: keyword.control.odin
     - match: \b(nil|true|false|iota)\b
       scope: constant.language.odin
-    - match: '\b(\d(\d|_)*(.(\d|_))?)((e|E)(\+|-)?\d+)?\b'
+    - match: '\b(\d(\d|_)*(.\d(\d|_)*)?)((e|E)(\+|-)?\d+)?[ijk]?\b'
       scope: constant.numeric.odin
-    - match: '\b((0b(0|1|_)+)|(0o(\d|_)+)|(0d(\d|_)+)|(0[xX](\h|_)+))\b'
+    - match: '\b((0b(0|1|_)+)|(0o(\d|_)+)|(0d(\d|_)+)|(0[xX](\h|_)+))[ijk]?\b'
       scope: constant.numeric.odin
     - match: \b(macro|proc|struct|enum|union|raw_union|map)\b
       scope: storage.type.odin
@@ -119,7 +119,7 @@ contexts:
     - include: basic-types
 
   basic-types:
-    - match: '\b((i8|i16|i32|i64|int)?|(u8|u16|u32|u64|uint)?|(f32|f64)?|byte|bool|string|rune|rawptr|any)\b'
+    - match: '\b((i8|i16|i32|i64|int)|(u8|u16|u32|u64|uint)|(f32|f64)|(complex64|complex128)|(quaternion128|quaternion256)|byte|bool|string|rune|rawptr|any)\b'
       scope: storage.type.odin
 
   strings:
