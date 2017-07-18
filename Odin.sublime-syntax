@@ -9,6 +9,7 @@ scope: source.odin
 variables:
   identifier: '\b[[:alpha:]_][[:alnum:]_]*\b'
   type_chars: '[[:alnum:]\s,._^<>\[\]-]'
+  screaming_identifier: '\b[A-Z_](?![a-z])[A-Z_0-9]+\b'
 
 contexts:
   main:
@@ -97,11 +98,13 @@ contexts:
     - match: ({{identifier}})\s*[!]?\s*[\(]
       captures:
         1: support.function.odin
-    - match: '\b({{identifier}})\s*[:]\s*[:]\s*(struct|union|raw_union|enum)[(]'
+    - match: '\b({{identifier}})\s*[:]\s*[:]\s*(struct|union|raw_union|enum|)'
       captures:
         1: meta.type.odin entity.name.type.odin
         2: storage.type.odin
-
+    - match: '\b({{screaming_identifier}})\s*[:].*[:]\s*'
+      captures:
+        1: constant.user.odin meta.constant.odin entity.name.constant.odin
 
   types:
     - match: '\b(struct|enum|union|raw_union|bit_field)\b(?:(\{)(\}))?'
@@ -109,6 +112,8 @@ contexts:
         1: storage.type.odin
         2: meta.block.odin punctuation.definition.block.begin.odin
         3: meta.block.odin punctuation.definition.block.end.odin
+    - match: '\b(proc|type)\b'
+      scope: storage.type.odin
     - match: (\[)(\d*)(\])(?=[[:alpha:]_])
       scope: meta.brackets.odin
       captures:
