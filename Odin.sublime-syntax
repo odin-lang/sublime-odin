@@ -53,7 +53,7 @@ contexts:
           pop: true
 
   keywords:
-    - match: \b(import|import_load|foreign|foreign_library|foreign_system_library)\b
+    - match: \b(import|export|foreign|foreign_library|foreign_system_library)\b
       scope: keyword.control.odin
     - match: \b(if|else|when|for|in|defer|match|return|const)\b
       scope: keyword.control.odin
@@ -63,6 +63,8 @@ contexts:
       scope: keyword.control.odin
     - match: \b(asm|yield|await)\b
       scope: keyword.control.odin
+    - match: \b(context)\b
+      scope: keyword.operator.odin
     - match: \b(push_allocator|push_context)\b
       scope: keyword.control.odin
     - match: \b(nil|true|false)\b
@@ -73,23 +75,21 @@ contexts:
       scope: constant.numeric.odin
     - match: '---'
       scope: constant.numeric.odin
-    - match: \b(var|let|type|macro|struct|enum|union|raw_union|map|bit_field)\b
+    - match: \b(var|let|type|macro|struct|enum|union|map|bit_field)\b
       scope: storage.type.odin
     - match: \b(cast|transmute)\b
       scope: keyword.function.odin
-    - match: '(#\s*{{identifier}})'
-      # scope: storage.constant.tag.odin
-      # scope: constant.numeric.tag.odin
-      scope: keyword.tag.odin
-    - match: \b(context)\b
+    - match: '@'
       scope: keyword.operator.odin
+    - match: '([#@]\s*{{identifier}})'
+      scope: keyword.tag.odin
 
   functions-and-declarations:
     - match: '\b({{identifier}})\s*[:]\s*[:]\s*(proc)\s*[(]'
       captures:
         1: meta.function.odin entity.name.function.odin
         2: storage.type.odin
-    - match: \b(size_of|align_of|offset_of|type_of|type_info)\b\s*\(
+    - match: \b(size_of|align_of|offset_of|type_of|type_info_of)\b\s*\(
       captures:
         1: keyword.function.odin
     - match: (proc|macro)\s*[\(]
@@ -98,7 +98,7 @@ contexts:
     - match: ({{identifier}})\s*[!]?\s*[\(]
       captures:
         1: support.function.odin
-    - match: '\b({{identifier}})\s*[:]\s*[:]\s*(struct|union|raw_union|enum|)'
+    - match: '\b({{identifier}})\s*[:]\s*[:]\s*(struct|union|enum|)'
       captures:
         1: meta.type.odin entity.name.type.odin
         2: storage.type.odin
@@ -107,7 +107,7 @@ contexts:
         1: constant.user.odin meta.constant.odin entity.name.constant.odin
 
   types:
-    - match: '\b(struct|enum|union|raw_union|bit_field)\b(?:(\{)(\}))?'
+    - match: '\b(struct|enum|union|bit_field)\b(?:(\{)(\}))?'
       captures:
         1: storage.type.odin
         2: meta.block.odin punctuation.definition.block.begin.odin
