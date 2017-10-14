@@ -1,0 +1,9 @@
+<snippet>
+	<content><![CDATA[switch ${2:condition} {
+case ${3:expr}:
+	$0
+}]]></content>
+	<tabTrigger>switch</tabTrigger>
+	<scope>source.odin</scope>
+	<description>Switch Statement</description>
+</snippet>
