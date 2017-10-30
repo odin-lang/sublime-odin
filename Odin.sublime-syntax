@@ -59,7 +59,7 @@ contexts:
       scope: keyword.control.odin
     - match: \b(fallthrough|break|continue|case|vector|static|dynamic)\b
       scope: keyword.control.odin
-    - match: \b(using|do)\b
+    - match: \b(using|do|inline|no_inline)\b
       scope: keyword.control.odin
     - match: \b(asm|yield|await)\b
       scope: keyword.control.odin
@@ -85,10 +85,15 @@ contexts:
       scope: keyword.tag.odin
 
   functions-and-declarations:
-    - match: '\b({{identifier}})\s*[:]\s*[:]\s*(proc)\s*[(]'
+    - match: '\b({{identifier}})\s*[:]\s*[:]\s*(proc)'
       captures:
         1: meta.function.odin entity.name.function.odin
         2: storage.type.odin
+    - match: '\b({{identifier}})\s*[:]\s*[:]\s*(inline|no_inline)\s+(proc)'
+      captures:
+        1: meta.function.odin entity.name.function.odin
+        2: keyword.control.odin
+        3: storage.type.odin
     - match: \b(size_of|align_of|offset_of|type_of|type_info_of)\b\s*\(
       captures:
         1: keyword.function.odin
@@ -122,7 +127,7 @@ contexts:
       scope: storage.type.odin
 
   basic-types:
-    - match: '\b((i8|i16|i32|i64|i128|int)|(u8|u16|u32|u64|u128|uint)|(f16|f32|f64)|(complex32|complex64|complex128)|(quaternion128|quaternion256)|byte|bool|string|rune|rawptr|any)\b'
+    - match: '\b((i8|i16|i32|i64|i128|int)|(u8|u16|u32|u64|u128|uint|uintptr)|(f16|f32|f64)|(complex32|complex64|complex128)|(quaternion128|quaternion256)|byte|bool|string|rune|rawptr|any)\b'
       scope: storage.type.odin
 
   strings:
