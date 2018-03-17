@@ -71,13 +71,13 @@ contexts:
       scope: constant.language.odin
     - match: '\b(\d(\d|_)*(.\d(\d|_)*)?)((e|E)(\+|-)?\d+)?[ijk]?\b'
       scope: constant.numeric.odin
-    - match: '\b((0b(0|1|_)+)|(0o(\d|_)+)|(0d(\d|_)+)|(0[xX](\h|_)+))[ijk]?\b'
+    - match: '\b((0b(0|1|_)+)|(0o(\d|_)+)|(0d(\d|_)+)|(0[xXh](\h|_)+))[i]?\b'
       scope: constant.numeric.odin
     - match: '---'
       scope: constant.numeric.odin
     - match: \b(type|macro|struct|enum|union|map|bit_field)\b
       scope: storage.type.odin
-    - match: \b(cast|transmute)\b
+    - match: \b(cast|transmute|auto_cast)\b
       scope: keyword.function.odin
     - match: '@'
       scope: keyword.operator.odin
@@ -133,7 +133,9 @@ contexts:
       scope: storage.type.odin
     - match: '\b(bool|b8|b16|b32|b64)\b'
       scope: storage.type.odin
-    - match: '\b(byte|string|rune|rawptr|any)\b'
+    - match: '\b(string|rune|rawptr|any)\b'
+      scope: storage.type.odin
+    - match: '\b(byte|cstring)\b'
       scope: storage.type.odin
 
   strings:
