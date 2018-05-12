@@ -75,7 +75,7 @@ contexts:
       scope: constant.numeric.odin
     - match: '---'
       scope: constant.numeric.odin
-    - match: \b(type|macro|struct|enum|union|map|bit_field)\b
+    - match: \b(type|var|macro|struct|enum|union|map|set|bit_field|typeid)\b
       scope: storage.type.odin
     - match: \b(cast|transmute|auto_cast)\b
       scope: keyword.function.odin
@@ -94,7 +94,7 @@ contexts:
         1: meta.function.odin entity.name.function.odin
         2: keyword.control.odin
         3: storage.type.odin
-    - match: \b(size_of|align_of|offset_of|type_of|type_info_of)\b\s*\(
+    - match: \b(size_of|align_of|offset_of|type_of|type_info_of|typeid_of)\b\s*\(
       captures:
         1: keyword.function.odin
     - match: (proc|macro)\s*[\(]
