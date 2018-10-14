@@ -1,6 +1,0 @@
-<snippet>
-	<content><![CDATA[export $2"${1:name}"]]></content>
-	<tabTrigger>exp</tabTrigger>
-	<scope>source.odin</scope>
-	<description>Export</description>
-</snippet>
