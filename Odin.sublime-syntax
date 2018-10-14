@@ -55,11 +55,11 @@ contexts:
   keywords:
     - match: \b(import|export|foreign|package)\b
       scope: keyword.control.odin
-    - match: \b(if|else|when|for|in|defer|switch|return|const)\b
+    - match: \b(if|else|when|for|in|defer|switch|return|const|do)\b
       scope: keyword.control.odin
     - match: \b(fallthrough|break|continue|case|vector|static|dynamic)\b
       scope: keyword.control.odin
-    - match: \b(using|do|inline|no_inline)\b
+    - match: \b(using|inline|no_inline)\b
       scope: keyword.control.odin
     - match: \b(asm|yield|await)\b
       scope: keyword.control.odin
@@ -75,7 +75,7 @@ contexts:
       scope: constant.numeric.odin
     - match: '---'
       scope: constant.numeric.odin
-    - match: \b(type|var|macro|struct|enum|union|map|set|bit_field|typeid)\b
+    - match: \b(var|macro|struct|enum|union|map|bit_field|bit_set)\b
       scope: storage.type.odin
     - match: \b(cast|transmute|auto_cast)\b
       scope: keyword.function.odin
@@ -94,7 +94,10 @@ contexts:
         1: meta.function.odin entity.name.function.odin
         2: keyword.control.odin
         3: storage.type.odin
-    - match: \b(size_of|align_of|offset_of|type_of|type_info_of|typeid_of)\b\s*\(
+    - match: \b(size_of|align_of|offset_of|type_of)\b\s*\(
+      captures:
+        1: keyword.function.odin
+    - match: \b(type_info_of|typeid_of)\b\s*\(
       captures:
         1: keyword.function.odin
     - match: (proc|macro)\s*[\(]
@@ -103,18 +106,25 @@ contexts:
     - match: ({{identifier}})\s*[!]?\s*[\(]
       captures:
         1: support.function.odin
-    - match: '\b({{identifier}})\s*[:]\s*[:]\s*(struct|union|enum|bit_field)'
+    - match: '\b({{identifier}})\s*[:]\s*[:]\s*(struct|union|enum|bit_field|bit_set)'
       captures:
         1: meta.type.odin entity.name.type.odin
         2: storage.type.odin
+    - match: '\b({{identifier}})\s*[:]\s*[:]\s*([#]\s*type)'
+      captures:
+        1: meta.type.odin entity.name.type.odin
+        2: keyword.tag.odin
+    - match: '\b({{identifier}})\s*[:]\s*[:]\s*'
+      captures:
+        1: meta.constant.odin entity.name.type.odin
 
   types:
-    - match: '\b(struct|enum|union|bit_field)\b(?:(\{)(\}))?'
+    - match: '\b(struct|enum|union|bit_field|bit_set)\b(?:(\{)(\}))?'
       captures:
         1: storage.type.odin
         2: meta.block.odin punctuation.definition.block.begin.odin
         3: meta.block.odin punctuation.definition.block.end.odin
-    - match: '\b(proc|type)\b'
+    - match: '\b(proc)\b'
       scope: storage.type.odin
     - match: (\[)(\d*)(\])(?=[[:alpha:]_])
       scope: meta.brackets.odin
@@ -127,15 +137,23 @@ contexts:
       scope: storage.type.odin
 
   basic-types:
-    - match: '\b((i8|i16|i32|i64|int)|(u8|u16|u32|u64|uint|uintptr))\b'
+    - match: '\b(i8|i16|i32|i64|int)\b'
       scope: storage.type.odin
-    - match: '\b((f16|f32|f64)|(complex32|complex64|complex128))\b'
+    - match: '\b(u8|u16|u32|u64|uint|uintptr)\b'
+      scope: storage.type.odin
+    - match: '\b(f16|f32|f64)\b'
+      scope: storage.type.odin
+    - match: '\b(complex32|complex64|complex128)\b'
       scope: storage.type.odin
     - match: '\b(bool|b8|b16|b32|b64)\b'
       scope: storage.type.odin
-    - match: '\b(string|rune|rawptr|any)\b'
+    - match: '\b(string|cstring|rune)\b'
       scope: storage.type.odin
-    - match: '\b(byte|cstring)\b'
+    - match: '\b(rawptr)\b'
+      scope: storage.type.odin
+    - match: '\b(any|typeid)\b'
+      scope: storage.type.odin
+    - match: '\b(byte)\b'
       scope: storage.type.odin
 
   strings:
@@ -164,7 +182,7 @@ contexts:
         - include: string-escaped-char
 
   string-escaped-char:
-    - match: '\\(\\|[abfnrutv''"]|x\h{2}|u\h{4}|U\h{8}|[0-7]{3})'
+    - match: '\\(\\|[abefnrutv''"]|x\h{2}|u\h{4}|U\h{8}|[0-7]{3})'
       scope: constant.character.escape.odin
     - match: \\.
       scope: invalid.illegal.unknown-escape.odin
