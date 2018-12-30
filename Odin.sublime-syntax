@@ -51,19 +51,25 @@ contexts:
         - meta_scope: comment.line.double-slash.odin
         - match: \n
           pop: true
+    - match: "#!"
+      scope: punctuation.definition.comment.odin
+      push:
+        - meta_scope: comment.line.double-slash.odin
+        - match: \n
+          pop: true
 
   keywords:
     - match: \b(import|export|foreign|package)\b
       scope: keyword.control.odin
-    - match: \b(if|else|when|for|in|defer|switch|return|const|do)\b
+    - match: \b(if|else|when|for|in|notin|defer|switch|return|const|do)\b
       scope: keyword.control.odin
-    - match: \b(fallthrough|break|continue|case|vector|static|dynamic)\b
+    - match: \b(fallthrough|break|continue|case|vector|dynamic|static)\b
       scope: keyword.control.odin
     - match: \b(using|inline|no_inline)\b
       scope: keyword.control.odin
     - match: \b(asm|yield|await)\b
       scope: keyword.control.odin
-    - match: \b(distinct)\b
+    - match: \b(distinct|opaque)\b
       scope: keyword.operator.odin
     - match: \b(context)\b
       scope: keyword.operator.odin
@@ -154,6 +160,11 @@ contexts:
     - match: '\b(any|typeid)\b'
       scope: storage.type.odin
     - match: '\b(byte)\b'
+      scope: storage.type.odin
+
+    - match: '\b(u16le|u32le|u64le|i16le|i32le|i64le)\b'
+      scope: storage.type.odin
+    - match: '\b(i16be|i32be|i64be|u16be|u32be|u64be)\b'
       scope: storage.type.odin
 
   strings:
