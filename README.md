@@ -1,2 +1,2 @@
 # Odin for Sublime
-Odin syntax definition for Sublime Text
+Odin syntax definition and build system for Sublime Text

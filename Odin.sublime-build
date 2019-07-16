@@ -1,0 +1,23 @@
+{
+	"selector": "source.odin",
+	"file_regex": "^\\s*File \"(...*?)\", line ([0-9]*)",
+
+	"variants":
+	[
+		{
+			"name": "build",
+			"cmd": ["odin build $file"],
+			"shell": true
+		},
+		{
+			"name": "run",
+			"cmd": ["odin run $file"],
+			"shell": true
+		},
+		{
+			"name": "check",
+			"cmd": ["odin check $file"],
+			"shell": true
+		}
+	]
+}
