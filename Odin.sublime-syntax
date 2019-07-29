@@ -81,7 +81,7 @@ contexts:
       scope: constant.numeric.odin
     - match: '---'
       scope: constant.numeric.odin
-    - match: \b(var|macro|struct|enum|union|map|bit_field|bit_set)\b
+    - match: \b(type|var|macro|struct|enum|union|map|set|bit_field|bit_set|typeid)\b
       scope: storage.type.odin
     - match: \b(cast|transmute|auto_cast)\b
       scope: keyword.function.odin
@@ -100,10 +100,7 @@ contexts:
         1: meta.function.odin entity.name.function.odin
         2: keyword.control.odin
         3: storage.type.odin
-    - match: \b(size_of|align_of|offset_of|type_of)\b\s*\(
-      captures:
-        1: keyword.function.odin
-    - match: \b(type_info_of|typeid_of)\b\s*\(
+    - match: \b(size_of|align_of|offset_of|type_of|type_info_of|typeid_of)\b\s*\(
       captures:
         1: keyword.function.odin
     - match: (proc|macro)\s*[\(]
@@ -130,8 +127,6 @@ contexts:
         1: storage.type.odin
         2: meta.block.odin punctuation.definition.block.begin.odin
         3: meta.block.odin punctuation.definition.block.end.odin
-    - match: '\b(proc)\b'
-      scope: storage.type.odin
     - match: (\[)(\d*)(\])(?=[[:alpha:]_])
       scope: meta.brackets.odin
       captures:
@@ -143,9 +138,9 @@ contexts:
       scope: storage.type.odin
 
   basic-types:
-    - match: '\b(i8|i16|i32|i64|int)\b'
+    - match: '\b(i8|i16|i32|i64|i128|int)\b'
       scope: storage.type.odin
-    - match: '\b(u8|u16|u32|u64|uint|uintptr)\b'
+    - match: '\b(u8|u16|u32|u64|u128|uint|uintptr)\b'
       scope: storage.type.odin
     - match: '\b(f16|f32|f64)\b'
       scope: storage.type.odin
@@ -162,9 +157,9 @@ contexts:
     - match: '\b(byte)\b'
       scope: storage.type.odin
 
-    - match: '\b(u16le|u32le|u64le|i16le|i32le|i64le)\b'
+    - match: '\b(u16le|u32le|u64le|u128le|i16le|i32le|i64le|i128le)\b'
       scope: storage.type.odin
-    - match: '\b(i16be|i32be|i64be|u16be|u32be|u64be)\b'
+    - match: '\b(u16be|u32be|u64be|u128be|i16be|i32be|i64be|i128be)\b'
       scope: storage.type.odin
 
   strings:
