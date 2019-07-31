@@ -80,7 +80,7 @@ contexts:
     - match: '\b((0b(0|1|_)+)|(0o(\d|_)+)|(0d(\d|_)+)|(0[xXh](\h|_)+))[i]?\b'
       scope: constant.numeric.odin
     - match: '---'
-      scope: constant.numeric.odin
+      scope: keyword.other.odin
     - match: \b(type|var|macro|struct|enum|union|map|set|bit_field|bit_set|typeid)\b
       scope: storage.type.odin
     - match: \b(cast|transmute|auto_cast)\b
@@ -106,9 +106,18 @@ contexts:
     - match: (proc|macro)\s*[\(]
       captures:
         1: storage.type.odin
-    - match: ({{identifier}})\s*[!]?\s*[\(]
+    - match: \b(make|delete|new(_clone)?|free(_all)?|clear|reserve|resize|append(_string)?|copy|pop)[\(]
+      captures:
+        "1": support.function.odin
+    - match: \b(assertf?|panicf?|unimplemented|unreachable|card|incl|excl|default_hash(_string)?|source_code_location_hash|init_global_temporary_allocator)\s*[\(]
       captures:
         1: support.function.odin
+    - match: \b((un)?ordered_remove)\s*[\(]
+      captures:
+        1: support.function.odin
+    - match: ({{identifier}})\s*[!]?\s*[\(]
+      captures:
+        1: entity.function.odin
     - match: '\b({{identifier}})\s*[:]\s*[:]\s*(struct|union|enum|bit_field|bit_set)'
       captures:
         1: meta.type.odin entity.name.type.odin
