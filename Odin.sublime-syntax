@@ -20,18 +20,8 @@ contexts:
     - include: types
     - include: keywords
     - include: functions-and-declarations
-    # - include: custom_styling
     - include: strings
     - include: string-escaped-char
-
-
-  custom_styling:
-    - match: \b({{screaming_identifier}})\b
-      captures:
-        1: storage.constant.odin
-
-    - match: \b([A-Z][a-z0-9]+)([_A-Z][a-z0-9]*)*\b
-      scope: storage.type.odin
 
   block-comment:
     - match: /\*
@@ -59,11 +49,11 @@ contexts:
           pop: true
 
   keywords:
-    - match: \b(import|export|foreign|package)\b
+    - match: \b(import|foreign|package)\b
       scope: keyword.control.odin
-    - match: \b(if|else|when|for|in|notin|defer|switch|return|const|do)\b
+    - match: \b(if|else|when|for|in|notin|not_in|defer|switch|return|const|do|where)\b
       scope: keyword.control.odin
-    - match: \b(fallthrough|break|continue|case|vector|dynamic|static)\b
+    - match: \b(fallthrough|break|continue|case|dynamic)\b
       scope: keyword.control.odin
     - match: \b(using|inline|no_inline)\b
       scope: keyword.control.odin
@@ -77,18 +67,22 @@ contexts:
       scope: constant.language.odin
     - match: '\b(\d(\d|_)*(.\d(\d|_)*)?)((e|E)(\+|-)?\d+)?[ijk]?\b'
       scope: constant.numeric.odin
-    - match: '\b((0b(0|1|_)+)|(0o(\d|_)+)|(0d(\d|_)+)|(0[xXh](\h|_)+))[i]?\b'
+    - match: '\b((0b(0|1|_)+)|(0o(\d|_)+)|(0d(\d|_)+)|(0[xXh](\h|_)+))[ijk]?\b'
       scope: constant.numeric.odin
     - match: '---'
       scope: constant.numeric.odin
-    - match: \b(var|macro|struct|enum|union|map|bit_field|bit_set)\b
+    - match: \b(macro|struct|enum|union|map|bit_field|bit_set)\b
       scope: storage.type.odin
     - match: \b(cast|transmute|auto_cast)\b
       scope: keyword.function.odin
+    - match: '([#]\s*{{identifier}})'
+      scope: keyword.tag.odin
+    - match: '(\x40\s*{{identifier}})'
+      scope: keyword.tag.odin
+    - match: '(\x40\s*[(]\s*{{identifier}})\s*[)]'
+      scope: keyword.tag.odin
     - match: '@'
       scope: keyword.operator.odin
-    - match: '([#@]\s*{{identifier}})'
-      scope: keyword.tag.odin
 
   functions-and-declarations:
     - match: '\b({{identifier}})\s*[:]\s*[:]\s*(proc)'
@@ -143,13 +137,19 @@ contexts:
       scope: storage.type.odin
 
   basic-types:
-    - match: '\b(i8|i16|i32|i64|int)\b'
+    - match: '\b(i8|i16|i32|i64|i128|int)\b'
       scope: storage.type.odin
-    - match: '\b(u8|u16|u32|u64|uint|uintptr)\b'
+    - match: '\b(u8|u16|u32|u64|u128|uint|uintptr)\b'
       scope: storage.type.odin
     - match: '\b(f16|f32|f64)\b'
       scope: storage.type.odin
+    - match: '\b(f16le|f32le|f64le)\b'
+      scope: storage.type.odin
+    - match: '\b(f16be|f32be|f64be)\b'
+      scope: storage.type.odin
     - match: '\b(complex32|complex64|complex128)\b'
+      scope: storage.type.odin
+    - match: '\b(quaternion64|quaternion128|quaternion256)\b'
       scope: storage.type.odin
     - match: '\b(bool|b8|b16|b32|b64)\b'
       scope: storage.type.odin
@@ -162,9 +162,9 @@ contexts:
     - match: '\b(byte)\b'
       scope: storage.type.odin
 
-    - match: '\b(u16le|u32le|u64le|i16le|i32le|i64le)\b'
+    - match: '\b(u16le|u32le|u64le|u128le|i16le|i32le|i64le|i128le)\b'
       scope: storage.type.odin
-    - match: '\b(i16be|i32be|i64be|u16be|u32be|u64be)\b'
+    - match: '\b(i16be|i32be|i64be|i128be|u16be|u32be|u64be|u128be)\b'
       scope: storage.type.odin
 
   strings:
