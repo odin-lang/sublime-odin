@@ -89,7 +89,7 @@ contexts:
       captures:
         1: meta.function.odin entity.name.function.odin
         2: storage.type.odin
-    - match: '\b({{identifier}})\s*[:]\s*[:]\s*(inline|no_inline)\s+(proc)'
+    - match: '\b({{identifier}})\s*[:]\s*[:]\s*(#force_inline|#force_no_inline)\s+(proc)'
       captures:
         1: meta.function.odin entity.name.function.odin
         2: keyword.control.odin
