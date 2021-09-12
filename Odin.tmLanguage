@@ -163,31 +163,31 @@
                     </dict>
                     <dict>
                         <key>match</key>
-                        <string>\b(if|else|when|for|in|notin|not_in|defer|switch|return|const|do|where)\b</string>
+                        <string>\b(if|else|when|for|in|not_in|defer|switch|return|const|do|where)\b</string>
                         <key>name</key>
                         <string>keyword.control.odin</string>
                     </dict>
                     <dict>
                         <key>match</key>
-                        <string>\b(fallthrough|break|continue|case|dynamic)\b</string>
+                        <string>\b(fallthrough|break|continue|case)\b</string>
                         <key>name</key>
                         <string>keyword.control.odin</string>
                     </dict>
                     <dict>
                         <key>match</key>
-                        <string>\b(using|inline|no_inline)\b</string>
+                        <string>\b(using)\b</string>
                         <key>name</key>
                         <string>keyword.control.odin</string>
                     </dict>
                     <dict>
                         <key>match</key>
-                        <string>\b(asm|yield|await)\b</string>
+                        <string>\b(asm|or_return|or_else)\b</string>
                         <key>name</key>
                         <string>keyword.control.odin</string>
                     </dict>
                     <dict>
                         <key>match</key>
-                        <string>\b(distinct|opaque)\b</string>
+                        <string>\b(distinct)\b</string>
                         <key>name</key>
                         <string>keyword.operator.odin</string>
                     </dict>
@@ -223,7 +223,7 @@
                     </dict>
                     <dict>
                         <key>match</key>
-                        <string>\b(macro|struct|enum|union|map|bit_field|bit_set)\b</string>
+                        <string>\b(struct|enum|union|map|bit_set|dynamic)\b</string>
                         <key>name</key>
                         <string>storage.type.odin</string>
                     </dict>
@@ -391,7 +391,7 @@
                     </dict>
                     <dict>
                         <key>match</key>
-                        <string>\b(\b[[:alpha:]_]+[[:alnum:]_]*\b)\s*[:]\s*[:]\s*(inline|no_inline)\s+(proc)</string>
+                        <string>\b(\b[[:alpha:]_]+[[:alnum:]_]*\b)\s*[:]\s*[:]\s*([#]force_inline|[#]force_no_inline)\s+(proc)</string>
                         <key>captures</key>
                         <dict>
                             <key>1</key>
@@ -413,31 +413,7 @@
                     </dict>
                     <dict>
                         <key>match</key>
-                        <string>\b(size_of|align_of|offset_of|type_of)\b\s*\(</string>
-                        <key>captures</key>
-                        <dict>
-                            <key>1</key>
-                            <dict>
-                                <key>name</key>
-                                <string>keyword.function.odin</string>
-                            </dict>
-                        </dict>
-                    </dict>
-                    <dict>
-                        <key>match</key>
-                        <string>\b(type_info_of|typeid_of)\b\s*\(</string>
-                        <key>captures</key>
-                        <dict>
-                            <key>1</key>
-                            <dict>
-                                <key>name</key>
-                                <string>keyword.function.odin</string>
-                            </dict>
-                        </dict>
-                    </dict>
-                    <dict>
-                        <key>match</key>
-                        <string>(proc|macro)\s*[\(]</string>
+                        <string>(proc)\s*[\(]</string>
                         <key>captures</key>
                         <dict>
                             <key>1</key>
