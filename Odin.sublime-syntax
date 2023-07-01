@@ -83,6 +83,8 @@ contexts:
       scope: keyword.tag.odin
     - match: '@'
       scope: keyword.operator.odin
+    - match: \bassert\b
+      scope: keyword.other.assert.odin
 
   functions-and-declarations:
     - match: '\b({{identifier}})\s*[:]\s*[:]\s*(proc)'
