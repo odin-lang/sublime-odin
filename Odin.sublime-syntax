@@ -109,7 +109,7 @@ contexts:
     - match: '\b({{identifier}})\s*[:]\s*[:]\s*(struct|union|enum|bit_set)'
       captures:
         1: meta.type.odin entity.name.type.odin
-        2: storage.type.odin
+        2: storage.type.odin keyword.declaration.odin
     - match: '\b({{identifier}})\s*[:]\s*[:]\s*([#]\s*type)'
       captures:
         1: meta.type.odin entity.name.type.odin
