@@ -181,7 +181,7 @@
                     </dict>
                     <dict>
                         <key>match</key>
-                        <string>\b(asm|or_return|or_else)\b</string>
+                        <string>\b(asm|or_return|or_else|or_break|or_continue)\b</string>
                         <key>name</key>
                         <string>keyword.control.odin</string>
                     </dict>
