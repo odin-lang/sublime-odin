@@ -57,7 +57,7 @@ contexts:
       scope: keyword.control.odin
     - match: \b(using|([#]force_inline)|([#]force_no_inline))\b
       scope: keyword.control.odin
-    - match: \b(asm|or_else|or_return)\b
+    - match: \b(asm|or_else|or_return|or_break|or_continue)\b
       scope: keyword.control.odin
     - match: \b(distinct)\b
       scope: keyword.operator.odin
