@@ -85,6 +85,12 @@ contexts:
       scope: keyword.operator.odin
 
   functions-and-declarations:
+    - match: '\b(assert)+\([^\)]*\)(\.[^\)]*\))?'
+      captures:
+        1: keyword.function.odin keyword.function.assert.odin
+    - match: '\b(len|raw_data)+\([^\)]*\)(\.[^\)]*\))?'
+      captures:
+        1: keyword.function.odin keyword.function.slices.odin
     - match: '\b({{identifier}})\s*[:]\s*[:]\s*(proc)'
       captures:
         1: meta.function.odin entity.name.function.odin
