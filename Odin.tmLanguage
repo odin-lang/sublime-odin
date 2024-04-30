@@ -223,7 +223,7 @@
                     </dict>
                     <dict>
                         <key>match</key>
-                        <string>\b(struct|enum|union|map|bit_set|dynamic)\b</string>
+                        <string>\b(struct|enum|union|map|bit_set|bit_field|dynamic)\b</string>
                         <key>name</key>
                         <string>storage.type.odin</string>
                     </dict>
