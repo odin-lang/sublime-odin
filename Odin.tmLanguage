@@ -265,7 +265,7 @@
                 <array>
                     <dict>
                         <key>match</key>
-                        <string>\b(struct|enum|union|bit_field|bit_set|matrix)\b(?:(\{)(\}))?</string>
+                        <string>\b(struct|enum|union|bit_field|bit_set)\b(?:(\{)(\}))?</string>
                         <key>name</key>
                         <string>storage.type.odin</string>
                     </dict>
