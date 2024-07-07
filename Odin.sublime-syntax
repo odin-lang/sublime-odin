@@ -119,7 +119,7 @@ contexts:
         1: meta.constant.odin entity.name.type.odin
 
   types:
-    - match: '\b(struct|enum|union|bit_set|bit_field|matrix)\b(?:(\{)(\}))?'
+    - match: '\b(struct|enum|union|bit_set|bit_field)\b(?:(\{)(\}))?'
       captures:
         1: storage.type.odin
         2: meta.block.odin punctuation.definition.block.begin.odin
