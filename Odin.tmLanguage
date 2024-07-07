@@ -223,7 +223,7 @@
                     </dict>
                     <dict>
                         <key>match</key>
-                        <string>\b(struct|enum|union|map|bit_set|bit_field|dynamic)\b</string>
+                        <string>\b(struct|enum|union|map|bit_set|bit_field|dynamic|matrix)\b</string>
                         <key>name</key>
                         <string>storage.type.odin</string>
                     </dict>
@@ -265,7 +265,7 @@
                 <array>
                     <dict>
                         <key>match</key>
-                        <string>\b(struct|enum|union|bit_field|bit_set)\b(?:(\{)(\}))?</string>
+                        <string>\b(struct|enum|union|bit_field|bit_set|matrix)\b(?:(\{)(\}))?</string>
                         <key>name</key>
                         <string>storage.type.odin</string>
                     </dict>
@@ -437,7 +437,7 @@
                     </dict>
                     <dict>
                         <key>match</key>
-                        <string>\b(\b[[:alpha:]_]+[[:alnum:]_]*\b)\s*[:]\s*[:]\s*(struct|union|enum|bit_field|bit_set)</string>
+                        <string>\b(\b[[:alpha:]_]+[[:alnum:]_]*\b)\s*[:]\s*[:]\s*(struct|union|enum|bit_field|bit_set|matrix)</string>
                         <key>captures</key>
                         <dict>
                             <key>1</key>
