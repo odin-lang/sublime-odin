@@ -205,7 +205,7 @@
                     </dict>
                     <dict>
                         <key>match</key>
-                        <string>\b(\d(\d|_)*(.\d(\d|_)*)?)((e|E)(\+|-)?\d+)?[ijk]?\b</string>
+                        <string>\b(\d(\d|_)*(\.\d(\d|_)*)?)((e|E)(\+|-)?\d+)?[ijk]?\b</string>
                         <key>name</key>
                         <string>constant.numeric.odin</string>
                     </dict>
