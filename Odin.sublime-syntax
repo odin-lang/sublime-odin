@@ -47,7 +47,7 @@ contexts:
         - meta_scope: comment.line.double-slash.odin
         - match: \n
           pop: true
-    - match: "#+"
+    - match: "#[+]"
       scope: punctuation.definition.comment.odin
       push:
         - meta_scope: comment.line.double-slash.odin
