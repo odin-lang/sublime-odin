@@ -89,7 +89,7 @@
                             </dict>
                         </dict>
                         <key>end</key>
-                        <string>\n</string>
+                        <string>(?=\n)</string>
                         <key>name</key>
                         <string>comment.line.double-slash.odin</string>
                         <key>patterns</key>
@@ -114,32 +114,7 @@
                             </dict>
                         </dict>
                         <key>end</key>
-                        <string>\n</string>
-                        <key>name</key>
-                        <string>comment.line.double-slash.odin</string>
-                        <key>patterns</key>
-                        <array>
-                            <dict>
-                                <key>match</key>
-                                <string>(?&gt;\\\s*\n)</string>
-                                <key>name</key>
-                                <string>punctuation.separator.continuation.odin</string>
-                            </dict>
-                        </array>
-                    </dict>
-                    <dict>
-                        <key>begin</key>
-                        <string>#[+]</string>
-                        <key>beginCaptures</key>
-                        <dict>
-                            <key>0</key>
-                            <dict>
-                                <key>name</key>
-                                <string>punctuation.definition.comment.odin</string>
-                            </dict>
-                        </dict>
-                        <key>end</key>
-                        <string>\n</string>
+                        <string>(?=\n)</string>
                         <key>name</key>
                         <string>comment.line.double-slash.odin</string>
                         <key>patterns</key>
@@ -261,6 +236,12 @@
                     <dict>
                         <key>match</key>
                         <string>([#]\s*\b([[:alpha:]_]+[[:alnum:]_]*)\b)</string>
+                        <key>name</key>
+                        <string>keyword.tag.odin</string>
+                    </dict>
+                    <dict>
+                        <key>match</key>
+                        <string>(#[+]\s*[[:alpha:]-][[:alnum:]-]*)</string>
                         <key>name</key>
                         <string>keyword.tag.odin</string>
                     </dict>
