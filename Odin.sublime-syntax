@@ -47,6 +47,12 @@ contexts:
         - meta_scope: comment.line.double-slash.odin
         - match: \n
           pop: true
+    - match: "#+"
+      scope: punctuation.definition.comment.odin
+      push:
+        - meta_scope: comment.line.double-slash.odin
+        - match: \n
+          pop: true
 
   keywords:
     - match: \b(import|foreign|package)\b
@@ -71,7 +77,7 @@ contexts:
       scope: constant.numeric.odin
     - match: '---'
       scope: constant.numeric.odin
-    - match: \b(struct|enum|union|map|bit_set|bit_field|dynamic)\b
+    - match: \b(struct|enum|union|map|bit_set|bit_field|dynamic|matrix)\b
       scope: storage.type.odin
     - match: \b(cast|transmute|auto_cast)\b
       scope: keyword.function.odin
@@ -106,7 +112,7 @@ contexts:
     - match: ({{identifier}})\s*[!]?\s*[\(]
       captures:
         1: support.function.odin
-    - match: '\b({{identifier}})\s*[:]\s*[:]\s*(struct|union|enum|bit_set|bit_field)'
+    - match: '\b({{identifier}})\s*[:]\s*[:]\s*(struct|union|enum|bit_set)'
       captures:
         1: meta.type.odin entity.name.type.odin
         2: storage.type.odin
@@ -119,7 +125,7 @@ contexts:
         1: meta.constant.odin entity.name.type.odin
 
   types:
-    - match: '\b(struct|enum|union|bit_set|bit_field)\b(?:(\{)(\}))?'
+    - match: '\b(struct|enum|union|bit_set)\b(?:(\{)(\}))?'
       captures:
         1: storage.type.odin
         2: meta.block.odin punctuation.definition.block.begin.odin
