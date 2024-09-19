@@ -89,7 +89,7 @@
                             </dict>
                         </dict>
                         <key>end</key>
-                        <string>\n</string>
+                        <string>(?=\n)</string>
                         <key>name</key>
                         <string>comment.line.double-slash.odin</string>
                         <key>patterns</key>
@@ -114,7 +114,7 @@
                             </dict>
                         </dict>
                         <key>end</key>
-                        <string>\n</string>
+                        <string>(?=\n)</string>
                         <key>name</key>
                         <string>comment.line.double-slash.odin</string>
                         <key>patterns</key>
