@@ -127,6 +127,31 @@
                             </dict>
                         </array>
                     </dict>
+                    <dict>
+                        <key>begin</key>
+                        <string>#+</string>
+                        <key>beginCaptures</key>
+                        <dict>
+                            <key>0</key>
+                            <dict>
+                                <key>name</key>
+                                <string>punctuation.definition.comment.odin</string>
+                            </dict>
+                        </dict>
+                        <key>end</key>
+                        <string>\n</string>
+                        <key>name</key>
+                        <string>comment.line.double-slash.odin</string>
+                        <key>patterns</key>
+                        <array>
+                            <dict>
+                                <key>match</key>
+                                <string>(?&gt;\\\s*\n)</string>
+                                <key>name</key>
+                                <string>punctuation.separator.continuation.odin</string>
+                            </dict>
+                        </array>
+                    </dict>
                 </array>
             </dict>
 
