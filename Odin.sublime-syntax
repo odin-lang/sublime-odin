@@ -47,12 +47,6 @@ contexts:
         - meta_scope: comment.line.double-slash.odin
         - match: \n
           pop: true
-    - match: "#[+]"
-      scope: punctuation.definition.comment.odin
-      push:
-        - meta_scope: comment.line.double-slash.odin
-        - match: \n
-          pop: true
 
   keywords:
     - match: \b(import|foreign|package)\b
@@ -82,6 +76,8 @@ contexts:
     - match: \b(cast|transmute|auto_cast)\b
       scope: keyword.function.odin
     - match: '([#]\s*{{identifier}})'
+      scope: keyword.tag.odin
+    - match: '(#[+]\s*[[:alpha:]-][[:alnum:]-]*)'
       scope: keyword.tag.odin
     - match: '(\x40\s*{{identifier}})'
       scope: keyword.tag.odin
