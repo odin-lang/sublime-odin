@@ -27,26 +27,40 @@ contexts:
     - match: /\*
       scope: punctuation.definition.comment.odin
       push:
+        - include: comment-annotations
         - meta_scope: comment.block.odin
         - match: \*/
           scope: punctuation.definition.comment.odin
           pop: true
         - include: block-comment
 
-  comments:
-    - include: block-comment
+  line-comments:
     - match: //
       scope: punctuation.definition.comment.odin
       push:
+        - include: comment-annotations
         - meta_scope: comment.line.double-slash.odin
         - match: \n
           pop: true
     - match: "#!"
       scope: punctuation.definition.comment.odin
       push:
+        - include: comment-annotations
         - meta_scope: comment.line.double-slash.odin
         - match: \n
           pop: true
+
+  comment-annotations:
+    - match: (?i)\b(TODO)\b
+      scope: annotation.todo.odin
+    - match: (?i)\b(NOTE)\b
+      scope: annotation.note.odin
+    - match: (?i)\b(IMPORTANT)\b
+      scope: annotation.important.odin
+
+  comments:
+    - include: block-comment
+    - include: line-comments
 
   keywords:
     - match: \b(import|foreign|package)\b
