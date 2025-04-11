@@ -47,6 +47,12 @@ contexts:
         - meta_scope: comment.line.double-slash.odin
         - match: \n
           pop: true
+    - match: "#[+]"
+      scope: punctuation.definition.comment.odin
+      push:
+        - meta_scope: comment.line.double-slash.odin
+        - match: \n
+          pop: true
 
   keywords:
     - match: \b(import|foreign|package)\b
@@ -63,6 +69,8 @@ contexts:
       scope: keyword.operator.odin
     - match: \b(context)\b
       scope: keyword.operator.odin
+    - match: '(\+|\-|\*|\/|\:|\:\:|\:=|\+\=|\*\=|\=|\-\=|\=\=|\!\=|\<\=|\>\=|\<|\>|\.\.\<|\.\.\=|\?|\~|\||\&\~)'
+      scope: keyword.operator.odin
     - match: \b(nil|true|false)\b
       scope: constant.language.odin
     - match: '\b(\d(\d|_)*(.\d(\d|_)*)?)((e|E)(\+|-)?\d+)?[ijk]?\b'
@@ -77,25 +85,37 @@ contexts:
       scope: keyword.function.odin
     - match: '([#]\s*{{identifier}})'
       scope: keyword.tag.odin
-    - match: '(#[+]\s*[[:alpha:]-][[:alnum:]-]*)'
-      scope: keyword.tag.odin
     - match: '(\x40\s*{{identifier}})'
       scope: keyword.tag.odin
     - match: '(\x40\s*[(]\s*{{identifier}})\s*[)]'
       scope: keyword.tag.odin
     - match: '@'
       scope: keyword.operator.odin
+    - match: '(\(|\)|\{|\}|\[|\]|,|;)'
+      scope: keyword.separator.odin
+    - match: '(\&\&|\|\||\!)'
+      scope: keyword.logic.odin
+    - match: '(\&|\^|\.)'
+      scope: keyword.pointers.odin
+    # - match: '(\$)'
+    #   scope: keyword.generic.odin
 
   functions-and-declarations:
-    - match: '\b({{identifier}})\s*[:]\s*[:]\s*(proc)'
+    - match: '\b({{identifier}})\s*(:)\s*(:)\s*(proc)'
       captures:
         1: meta.function.odin entity.name.function.odin
-        2: storage.type.odin
-    - match: '\b({{identifier}})\s*[:]\s*[:]\s*([#]force_inline|[#]force_no_inline)\s+(proc)'
+        2: keyword.separator.odin
+        3: keyword.separator.odin
+        4: storage.type.odin
+
+    - match: '\b({{identifier}})\s*(:)\s*(:)\s*([#]force_inline|[#]force_no_inline)\s+(proc)'
       captures:
         1: meta.function.odin entity.name.function.odin
-        2: keyword.control.odin
-        3: storage.type.odin
+        2: keyword.separator.odin
+        3: keyword.separator.odin
+        4: keyword.control.odin
+        5: storage.type.odin
+
     - match: \b(size_of|align_of|offset_of|type_of)\b\s*\(
       captures:
         1: keyword.function.odin
@@ -105,38 +125,54 @@ contexts:
     - match: (proc)\s*[\(]
       captures:
         1: storage.type.odin
-    - match: ({{identifier}})\s*[!]?\s*[\(]
+    - match: ({{identifier}})\s*[!]?\s*(\()
       captures:
         1: support.function.odin
-    - match: '\b({{identifier}})\s*[:]\s*[:]\s*(struct|union|enum|bit_set)'
+        2: keyword.separator.odin
+    
+    - match: '\b({{identifier}})\s*(:)\s*(:)\s*(struct|union|enum|bit_set)'
       captures:
         1: meta.type.odin entity.name.type.odin
-        2: storage.type.odin
-    - match: '\b({{identifier}})\s*[:]\s*[:]\s*([#]\s*type)'
+        2: keyword.separator.odin
+        3: keyword.separator.odin
+        4: storage.type.odin
+    
+    - match: '\b({{identifier}})\s*(:)\s*(:)\s*([#]\s*type)'
       captures:
         1: meta.type.odin entity.name.type.odin
-        2: keyword.tag.odin
-    - match: '\b({{identifier}})\s*[:]\s*[:]\s*'
+        2: keyword.operator.odin
+        3: keyword.operator.odin
+        4: keyword.tag.odin
+
+    - match: '\b({{identifier}})\s*(:)\s*(:)\s*'
       captures:
         1: meta.constant.odin entity.name.type.odin
+        2: keyword.operator.odin
+        3: keyword.operator.odin
+        
 
   types:
     - match: '\b(struct|enum|union|bit_set)\b(?:(\{)(\}))?'
       captures:
         1: storage.type.odin
-        2: meta.block.odin punctuation.definition.block.begin.odin
+        2: meta.block.odin punctuation.definition.block.begin.odin 
+        # 2: meta.block.odin keyword.separator.odin
         3: meta.block.odin punctuation.definition.block.end.odin
     - match: '\b(proc)\b'
       scope: storage.type.odin
     - match: (\[)(\d*)(\])(?=[[:alpha:]_])
-      scope: meta.brackets.odin
+      scope: meta.brackets.odin 
       captures:
-        1: punctuation.definition.brackets.begin.odin
+        1: punctuation.definition.brackets.begin.odin keyword.separator.odin
         2: constant.numeric.odin
-        3: punctuation.definition.brackets.end.odin
+        3: punctuation.definition.brackets.end.odin keyword.separator.odin
     - include: basic-types
-    - match: '\$\s*({{identifier}})'
-      scope: storage.type.odin
+
+    - match: '(\$)\s*({{identifier}})'
+      captures:
+          1: keyword.generic.odin
+          2: storage.type.odin
+
 
   basic-types:
     - match: '\b(i8|i16|i32|i64|i128|int)\b'
