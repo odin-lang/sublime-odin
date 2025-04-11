@@ -69,6 +69,8 @@ contexts:
       scope: keyword.operator.odin
     - match: \b(context)\b
       scope: keyword.operator.odin
+    - match: '(\&\&|\|\||\!)'
+      scope: keyword.logic.odin
     - match: '(\%|\+|\-|\*|\/|\:|\:\:|\:\=|\+\=|\*\=|\\\=|\=|\-\=|\=\=|\!\=|\<\=|\>\=|\<|\>|\.\.\<|\.\.\=|\?|\~|\||\&\~)'
       scope: keyword.operator.odin
     - match: \b(nil|true|false)\b
@@ -93,8 +95,6 @@ contexts:
       scope: keyword.operator.odin
     - match: '(\(|\)|\{|\}|\[|\]|,|;)'
       scope: keyword.separator.odin
-    - match: '(\&\&|\|\||\!)'
-      scope: keyword.logic.odin
     - match: '(\&|\^|\.)'
       scope: keyword.pointers.odin
     # - match: '(\$)'
