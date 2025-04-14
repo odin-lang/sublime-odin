@@ -47,12 +47,6 @@ contexts:
         - meta_scope: comment.line.double-slash.odin
         - match: \n
           pop: true
-    - match: "#[+]"
-      scope: punctuation.definition.comment.odin
-      push:
-        - meta_scope: comment.line.double-slash.odin
-        - match: \n
-          pop: true
 
   keywords:
     - match: \b(import|foreign|package)\b
@@ -89,6 +83,8 @@ contexts:
       scope: keyword.function.odin
     - match: '([#]\s*{{identifier}})'
       scope: keyword.tag.odin
+    - match: '(#\+\s*[[:alpha:]-][[:alnum:]-]*).*'
+      scope: keyword.tag.odin
     - match: '(\x40\s*{{identifier}})'
       scope: keyword.tag.odin
     - match: '(\x40\s*[(]\s*{{identifier}})\s*[)]'
@@ -96,9 +92,9 @@ contexts:
     - match: '@'
       scope: keyword.operator.odin
     - match: '(\(|\)|\{|\}|\[|\]|,|;)'
-      scope: keyword.separator.odin
+      scope: punctuation.separator.odin
     - match: '(\&|\^|\.)'
-      scope: keyword.pointers.odin
+      scope: punctuation.accessor.odin
     # - match: '(\$)'
     #   scope: keyword.generic.odin
 
@@ -106,37 +102,39 @@ contexts:
     - match: '\b({{identifier}})\s*(:)\s*(:)\s*(proc)'
       captures:
         1: meta.function.odin entity.name.function.odin
-        2: keyword.separator.odin
-        3: keyword.separator.odin
+        2: punctuation.separator.odin
+        3: punctuation.separator.odin
         4: storage.type.odin
 
     - match: '\b({{identifier}})\s*(:)\s*(:)\s*([#]force_inline|[#]force_no_inline)\s+(proc)'
       captures:
         1: meta.function.odin entity.name.function.odin
-        2: keyword.separator.odin
-        3: keyword.separator.odin
+        2: punctuation.separator.odin
+        3: punctuation.separator.odin
         4: keyword.control.odin
         5: storage.type.odin
 
-    - match: \b(size_of|align_of|offset_of|type_of)\b\s*\(
+    - match: \b(size_of|align_of|offset_of|type_of)\b\s*(\()
       captures:
         1: keyword.function.odin
-    - match: \b(type_info_of|typeid_of)\b\s*\(
+        2: punctuation.separator.odin
+    - match: \b(type_info_of|typeid_of)\b\s*(\()
       captures:
         1: keyword.function.odin
+        2: punctuation.separator.odin
     - match: (proc)\s*[\(]
       captures:
         1: storage.type.odin
     - match: ({{identifier}})\s*[!]?\s*(\()
       captures:
         1: support.function.odin
-        2: keyword.separator.odin
+        2: punctuation.separator.odin
     
     - match: '\b({{identifier}})\s*(:)\s*(:)\s*(struct|union|enum|bit_set)'
       captures:
         1: meta.type.odin entity.name.type.odin
-        2: keyword.separator.odin
-        3: keyword.separator.odin
+        2: punctuation.separator.odin
+        3: punctuation.separator.odin
         4: storage.type.odin
     
     - match: '\b({{identifier}})\s*(:)\s*(:)\s*([#]\s*type)'
@@ -158,16 +156,16 @@ contexts:
       captures:
         1: storage.type.odin
         2: meta.block.odin punctuation.definition.block.begin.odin 
-        # 2: meta.block.odin keyword.separator.odin
+        # 2: meta.block.odin punctuation.separator.odin
         3: meta.block.odin punctuation.definition.block.end.odin
     - match: '\b(proc)\b'
       scope: storage.type.odin
     - match: (\[)(\d*)(\])(?=[[:alpha:]_])
       scope: meta.brackets.odin 
       captures:
-        1: punctuation.definition.brackets.begin.odin keyword.separator.odin
+        1: punctuation.definition.brackets.begin.odin punctuation.separator.odin
         2: constant.numeric.odin
-        3: punctuation.definition.brackets.end.odin keyword.separator.odin
+        3: punctuation.definition.brackets.end.odin punctuation.separator.odin
     - include: basic-types
 
     - match: '(\$)\s*({{identifier}})'
