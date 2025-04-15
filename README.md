@@ -15,4 +15,4 @@ In Sublime Text, you can now select `View menu -> Syntax -> Odin` or use the syn
 
 ## Package Control
 
-Also available a package in Package Control: https://packagecontrol.io/packages/Odin
+Also available as a package in Package Control: https://packagecontrol.io/packages/Odin
