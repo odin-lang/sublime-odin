@@ -83,8 +83,12 @@ contexts:
       scope: keyword.function.odin
     - match: '([#]\s*{{identifier}})'
       scope: keyword.tag.odin
-    - match: '(#\+\s*[[:alpha:]-][[:alnum:]-]*).*'
+
+    # file tags such as #+build -- Note the special rule for comments. File tags
+    # don't follow normal grammar rules.
+    - match: '(#\+\s*)(.*(?=(//|/\*))|.*)'
       scope: keyword.tag.odin
+
     - match: '(\x40\s*{{identifier}})'
       scope: keyword.tag.odin
     - match: '(\x40\s*[(]\s*{{identifier}})\s*[)]'
@@ -93,8 +97,12 @@ contexts:
       scope: keyword.operator.odin
     - match: '(\(|\)|\{|\}|\[|\]|,|;)'
       scope: punctuation.separator.odin
+
+    # TODO: & should work as bit-wise operator too. Needs some special case to
+    # make it into `keyword.operator.odin`. Probably needs some smarter scoping.
     - match: '(\&|\^|\.)'
       scope: punctuation.accessor.odin
+      
     # - match: '(\$)'
     #   scope: keyword.generic.odin
 
@@ -102,15 +110,15 @@ contexts:
     - match: '\b({{identifier}})\s*(:)\s*(:)\s*(proc)'
       captures:
         1: meta.function.odin entity.name.function.odin
-        2: punctuation.separator.odin
-        3: punctuation.separator.odin
+        2: keyword.operator.odin
+        3: keyword.operator.odin
         4: storage.type.odin
 
     - match: '\b({{identifier}})\s*(:)\s*(:)\s*([#]force_inline|[#]force_no_inline)\s+(proc)'
       captures:
         1: meta.function.odin entity.name.function.odin
-        2: punctuation.separator.odin
-        3: punctuation.separator.odin
+        2: keyword.operator.odin
+        3: keyword.operator.odin
         4: keyword.control.odin
         5: storage.type.odin
 
@@ -133,8 +141,8 @@ contexts:
     - match: '\b({{identifier}})\s*(:)\s*(:)\s*(struct|union|enum|bit_set)'
       captures:
         1: meta.type.odin entity.name.type.odin
-        2: punctuation.separator.odin
-        3: punctuation.separator.odin
+        2: keyword.operator.odin
+        3: keyword.operator.odin
         4: storage.type.odin
     
     - match: '\b({{identifier}})\s*(:)\s*(:)\s*([#]\s*type)'
