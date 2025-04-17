@@ -98,9 +98,15 @@ contexts:
     - match: '(\(|\)|\{|\}|\[|\]|,|;)'
       scope: punctuation.separator.odin
 
-    # TODO: & should work as bit-wise operator too. Needs some special case to
-    # make it into `keyword.operator.odin`. Probably needs some smarter scoping.
-    - match: '(\&|\^|\.)'
+    # Match & as a bit-wise operator if there is a word, number or right paren
+    # to the left of it. Otherwise: Treat it as a 'pointer'. This is for people
+    # who want to give special colors to pointer-related usage of & and ^.
+    - match: '(?<=[\w|\)])\s*(\&)'
+      scope: keyword.operator.odin
+    - match: '(\&|\^)'
+      scope: keyword.operator.pointer.odin
+
+    - match: '(\.)'
       scope: punctuation.accessor.odin
       
     # - match: '(\$)'
