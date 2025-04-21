@@ -16,3 +16,7 @@ In Sublime Text, you can now select `View menu -> Syntax -> Odin` or use the syn
 ## Package Control
 
 Also available as a package in Package Control: https://packagecontrol.io/packages/Odin
+
+## Pull Requests
+
+We'll be taking no more changes to the syntax definitions. If you want to customize it, see Installation.
